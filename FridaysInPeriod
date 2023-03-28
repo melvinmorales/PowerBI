@@ -1,0 +1,16 @@
+//The metric vFridaysInPeriod stores the quantity of fridays between two dates.
+
+vFridaysInPeriod = 
+    COUNTX(
+        FILTER(
+            ADDCOLUMNS(
+                CALENDAR(
+                    DATE(YEAR("03/01/2023"), MONTH("03/01/2023"), DAY("03/01/2023")), 
+                    DATE(YEAR("03/31/2023"), MONTH("03/31/2023"), DAY("03/31/2023"))
+                    ),
+                "numWeekDay", WEEKDAY([Date], 2)
+            ),
+            [numWeekDay] = 5
+        ),
+        [Date]
+    )
